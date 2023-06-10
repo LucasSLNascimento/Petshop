@@ -29,7 +29,7 @@ class ClienteController {
             const resultado = await clienteModel.findOne({ 'codigo': codigo })
             res.status(200).json(resultado)
         } catch (error) {
-            res.status(500).json({ error: 'Erro ao salvar este cliente' })
+            res.status(500).json({ error: 'Erro ao listar este cliente' })
         }
     }
 
