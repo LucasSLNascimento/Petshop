@@ -15,6 +15,10 @@ export default function Header() {
                     <li> <Link class="nav-link px-2 link-dark" to='/carrinho'>Carrinho</Link> </li>
                 </ul>
             </header>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                
+            </div>
         </div>
     )
 }
