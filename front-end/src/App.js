@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
         <Header />
-       
+        <RoutesConfig />
         <Footer />
     </Router>
 
