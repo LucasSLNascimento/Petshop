@@ -1,0 +1,28 @@
+[
+    {
+        "codigo": 1,
+        "foto": "url_da_foto",
+        "nome": "Nome do Cliente",
+        "endereco": "Endereço do Cliente",
+        "telefone": 123456789,
+        "CPF": 123456789,
+        "credNome": "Nome do Cartão",
+        "credNum": 123456789,
+        "credCvc": 123,
+        "email": "cliente@example.com",
+        "senha": "senha_do_cliente"
+    },
+    {
+        "codigo": 2,
+        "foto": "url_da_foto",
+        "nome": "Nome do Cliente",
+        "endereco": "Endereço do Cliente",
+        "telefone": 123456789,
+        "CPF": 123456789,
+        "credNome": "Nome do Cartão",
+        "credNum": 123456789,
+        "credCvc": 123,
+        "email": "cliente2@example.com",
+        "senha": "senha_do_cliente2"
+    }
+]

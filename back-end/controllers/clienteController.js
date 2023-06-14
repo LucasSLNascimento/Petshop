@@ -1,16 +1,23 @@
 const clienteModel = require('../models/clienteModel')
+const auth = require('../auth/auth');
 
 class ClienteController {
 
     async salvar(req, res) {
         try {
-            let cliente = req.body
+            const cliente = req.body
+            if(await clienteModel.findOne({'email': cliente.email})){
+                res.status(400).send({ error: 'Cliente já cadastrado!' });
+            }
+
             const max = await clienteModel.findOne({}).sort({ codigo: -1 })
-            cliente.id = max == null ? 1 : max.id + 1
-            const resultado = await clienteModel.create(cliente)
+            cliente.codigo = max == null ? 1 : max.codigo + 1
+            
+            const resultado = await clienteModel.create(cliente)      
+            auth.incluirToken(resultado);
             res.status(201).json(resultado)
         } catch (error) {
-            res.status(500).json({ error: 'Erro ao salvar este cliente' })
+            res.status(500).json({error: "Erro ao salvar o cliente"})
         }
     }
 

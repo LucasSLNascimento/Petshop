@@ -3,6 +3,6 @@
 
 Aluno: Lucas Santos Leão Nascimento
 
-installs pro backend: npm install, react-router-dom, mongoose, multer, mongodb, cors, react
+installs pro backend: npm install, react-router-dom, mongoose, multer, mongodb, cors, react, bcryptjs
 
 http://localhost:3001/clientes
