@@ -3,6 +3,8 @@ var router = express.Router();
 const clienteController = require('../controllers/clienteController')
 
 router.get('/', clienteController.listar);
-router.post('/cadastro', clienteController.salvar);
+router.get('/:codigo', clienteController.buscarPorId);
+router.post('/', clienteController.salvar);
+router.put('/:codigo', clienteController.atualizar);
 
 module.exports = router;

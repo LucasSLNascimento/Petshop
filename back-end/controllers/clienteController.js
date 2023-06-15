@@ -44,7 +44,8 @@ class ClienteController {
         try {
             const codigo = req.params.codigo
             const _id = String((await clienteModel.findOne({ 'codigo': codigo }))._id)
-            await clienteModel.findByIdAndUpdate(String(_id), req.body)
+            const cliente = req.body
+            await clienteModel.findByIdAndUpdate(String(_id), cliente)
             res.status(200).send()
         } catch (error) {
             res.status(500).json({ error: 'Erro ao atualizar este cliente' })
