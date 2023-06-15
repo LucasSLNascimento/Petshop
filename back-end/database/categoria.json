@@ -1,0 +1,12 @@
+[
+    {
+       "codigo": 1,
+       "nome": "Comida",
+       "descricao": "Comidas para seu melhor amigo de 4 patas"
+    },
+    {
+        "codigo": 2,
+       "nome": "Roupas",
+       "descricao": "Seu pet também merece estar na moda"
+    }
+]

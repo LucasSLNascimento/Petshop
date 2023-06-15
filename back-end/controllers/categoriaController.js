@@ -6,7 +6,7 @@ class CategoriaController {
         try {
             let categoria = req.body
             const max = await categoriaModel.findOne({}).sort({ codigo: -1 })
-            categoria.id = max == null ? 1 : max.id + 1
+            categoria.codigo = max == null ? 1 : max.codigo + 1
             const resultado = await categoriaModel.create(categoria)
             res.status(201).json(resultado)
         } catch (error) {
