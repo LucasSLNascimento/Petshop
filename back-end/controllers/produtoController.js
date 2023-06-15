@@ -1,12 +1,19 @@
 const produtoModel = require('../models/produtoModel')
+const categoriaModel = require('../models/categoriaModel')
 
 class ProdutoController {
 
     async salvar(req, res) {
         try {
-            let produto = req.body
+            
             const max = await produtoModel.findOne({}).sort({ codigo: -1 })
-            produto.id = max == null ? 1 : max.id + 1
+            const produto = req.body
+            produto.codigo = max == null ? 1 : max.codigo + 1
+           
+            
+            //const categoria = String((await categoriaModel.findOne({'codigo': produto.categoria.codigo}))._id)
+            //produto.categoria = categoria
+            
             const resultado = await produtoModel.create(produto)
             res.status(201).json(resultado)
         } catch (error) {
@@ -16,7 +23,7 @@ class ProdutoController {
 
     async listar(req, res) {
         try {
-            const resultado = await produtoModel.find({})
+            const resultado = await produtoModel.find({'produtoId': req.params.categoriaId})
             res.status(200).json(resultado)
         } catch (error) {
             res.status(500).json({ error: 'Erro ao listar os produtos' })

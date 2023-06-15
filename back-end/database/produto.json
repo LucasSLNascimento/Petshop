@@ -1,0 +1,44 @@
+[
+    {
+        "codigo": 1,
+        "nome": "capa de chuva",
+        "imagem": "Imagem",
+        "descricao": "Capa apropriada para proteger seu pet da chuva",
+        "preco": 30.5,
+        "categoria": 2,
+        "animal": "Cachorro",
+        "coments": [
+            {
+                "comentario": "Bom material",
+                "nota": 10,
+                "_id": "648b8da8c56cc890315d3b90"
+            },
+            {
+                "comentario": "Bem resistente",
+                "nota": 8,
+                "_id": "648b8da8c56cc890315d3b91"
+            }
+        ]
+    },
+    {
+        "codigo": 2,
+        "nome": "Ração premium",
+        "imagem": "Imagem",
+        "descricao": "A melhor do mercado",
+        "preco": 40,
+        "categoria": 1,
+        "animal": "Gatos",
+        "coments": [
+            {
+                "comentario": "Qualidade",
+                "nota": 10,
+                "_id": "648b8e24c56cc890315d3b97"
+            },
+            {
+                "comentario": "Muito bom",
+                "nota": 8,
+                "_id": "648b8e24c56cc890315d3b98"
+            }
+        ]
+    }
+]
