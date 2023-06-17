@@ -6,7 +6,7 @@ export default function Home() {
     const [ordena, setOrdena] = useState('Nome');
 
     useEffect(() => {
-        fetch('')
+        fetch('http://localhost:3001/produtos')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(err => console.error(err))
@@ -17,11 +17,11 @@ export default function Home() {
     }
 
     const handleProdChange = (event) => {
-        setOrdena(event.target.value)
+        setProd_Name(event.target.value)
     }
-    const busca = data.filter((produto) => {
+    const busca = data.filter((produto) =>
         produto.nome.toLowerCase().includes(prod_name.toLowerCase)
-    })
+    )
     const handleOrdChange = (event) => {
         setOrdena(event.target.value);
     }
@@ -46,6 +46,19 @@ export default function Home() {
                     <option value="Menor preco">Menor ao maior preço</option>
                     <option value="Maior preco">Maior ao menor preço</option>
                 </select>
+            </div>
+
+            <div className="row">
+                <div class='row'>
+
+                    {data.map((produto, i) => (
+                        <div className="col-3" key={i}>
+                            <p>{produto.nome} </p>
+                        </div>
+                    ))}
+
+
+                </div>
             </div>
         </div>
     )
