@@ -56,7 +56,7 @@ export default function Detalhes() {
 
                 <div className='row' style={{ border: '1px solid #d3d3d3' }}>
                     <div className='col-6' >
-                        <img src={'/logo512.png'} alt={data.nome} className="card-img-top" />
+                        <img src={data.imagem} alt={data.nome} className="card-img-top" />
                     </div>
                     <div className='col-4'>
                         <div className='card'>

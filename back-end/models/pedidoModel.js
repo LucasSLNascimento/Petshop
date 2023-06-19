@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+import moment from 'moment';
 
 const pedidoSchema = new mongoose.Schema({
     codigo: Number, 
@@ -17,8 +18,8 @@ const pedidoSchema = new mongoose.Schema({
     */
     
     dataHora: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: moment().format('DD/MM/YYYY HH:mm')
     },
     status: String //aguardando, faturado, enviado, cancelado
 })

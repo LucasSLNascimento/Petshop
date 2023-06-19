@@ -44,20 +44,3 @@ async function carregarDados() {
 }
 
 carregarDados()
-
-
-
-/*
-
-
-
-
-
-
-
-        await clienteModel.deleteMany({})
-        for(const cliente of clientes){
-            await clienteModel.create(cliente)
-        }
-        console.log('Carga de clientes concluída')
-*/

@@ -79,7 +79,7 @@ export default function Home() {
                             ))}
                             <div className='col-3'>
                                 <div className="card">
-                                    <img src={'/logo512.png'} alt={produto.nome} className="card-img-top" style={{ height: '200px', width: '100px', marginLeft: '50px', marginTop: '5px' }} />
+                                    <img src={produto.imagem} alt={produto.nome} className="card-img-top" style={{ height: '200px', width: '100px', marginLeft: '50px', marginTop: '5px' }} />
                                     <div className="card-body">
                                         <h5 className="card-title">{produto.nome}</h5>
                                         <p>R$ {produto.preco}</p>
