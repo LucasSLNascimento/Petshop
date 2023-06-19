@@ -10,9 +10,14 @@ class ProdutoController {
             const produto = req.body
             produto.codigo = max == null ? 1 : max.codigo + 1
            
-            
-            //const categoria = String((await categoriaModel.findOne({'codigo': produto.categoria.codigo}))._id)
-            //produto.categoria = categoria
+            //const categoria = await categoriaModel.findOne({'codigo': produto.categoria.codigo})
+            //produto.categoria = categoria._id
+
+            if (req.file) {
+                const imagemBuffer = req.file.buffer
+                const imagemBase64 = imagemBuffer.toString('base64')
+                produto.imagem = imagemBase64
+            }
             
             const resultado = await produtoModel.create(produto)
             res.status(201).json(resultado)
@@ -44,6 +49,13 @@ class ProdutoController {
         try {
             const codigo = req.params.codigo
             const _id = String((await produtoModel.findOne({ 'codigo': codigo }))._id)
+            
+            if (req.file) {
+                const imagemBuffer = req.file.buffer
+                const imagemBase64 = imagemBuffer.toString('base64')
+                req.body.imagem = imagemBase64
+            }
+
             await produtoModel.findByIdAndUpdate(String(_id), req.body)
             res.status(200).send()
         } catch (error) {

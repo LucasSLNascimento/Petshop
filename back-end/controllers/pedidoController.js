@@ -1,4 +1,5 @@
 const pedidoModel = require('../models/pedidoModel')
+const clienteModel = require('../models/clienteModel')
 
 class PedidoController {
 
@@ -6,7 +7,11 @@ class PedidoController {
         try {
             let pedido = req.body
             const max = await pedidoModel.findOne({}).sort({ codigo: -1 })
-            pedido.id = max == null ? 1 : max.id + 1
+            pedido.codigo = max == null ? 1 : max.codigo + 1
+            
+            //const cliente = await clienteModel.findOne({codigo: pedido.cliente.codigo})
+            //pedido.cliente = cliente._id
+            
             const resultado = await pedidoModel.create(pedido)
             res.status(201).json(resultado)
         } catch (error) {
