@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [data, setData] = useState(null)
-    const [data2, setData2] = useState(null)
     const [prod_name, setProd_Name] = useState('')
     const [ordena, setOrdena] = useState('Nome');
 
@@ -12,13 +11,6 @@ export default function Home() {
         fetch('http://localhost:3001/produtos')
             .then(response => response.json())
             .then(data => setData(data))
-            .catch(err => console.error(err))
-    }, [])
-
-    useEffect(() => {
-        fetch('http://localhost:3001/categorias')
-            .then(response => response.json())
-            .then(data2 => setData2(data2))
             .catch(err => console.error(err))
     }, [])
 
@@ -61,25 +53,11 @@ export default function Home() {
 
             <div className="row">
                 <div className='row'>
-
-                    {busca && busca.map((produto, i) => (
+                    {busca.map((produto, i) => (
                         <div key={i}>
-                            {data2 && data2.map((categoria, j) => (
-                                <div key={j}>
-                                    {(() => {
-                                        if (produto.categoria === categoria.codigo) {
-                                            return (
-                                                <div className="container mt-5" style={{ border: '1px solid #d3d3d3' }}>
-                                                    <p>{categoria.nome}</p>
-                                                </div>
-                                            )
-                                        }
-                                    })()}
-                                </div>
-                            ))}
                             <div className='col-3'>
                                 <div className="card">
-                                    <img src={produto.imagem} alt={produto.nome} className="card-img-top" style={{ height: '200px', width: '100px', marginLeft: '50px', marginTop: '5px' }} />
+                                <img src={`data:image/jpeg;base64,` + btoa(Array.from(produto.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={produto.nome} className="card-img-top" />
                                     <div className="card-body">
                                         <h5 className="card-title">{produto.nome}</h5>
                                         <p>R$ {produto.preco}</p>

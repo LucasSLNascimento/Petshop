@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-import moment from 'moment';
+const moment = require ('moment');
 
 const pedidoSchema = new mongoose.Schema({
     codigo: Number, 

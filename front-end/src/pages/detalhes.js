@@ -5,8 +5,9 @@ import { useParams } from 'react-router-dom';
 
 export default function Detalhes() {
     const [data, setData] = useState('');
-    const [data2, setData2] = useState('')
-    let { id } = useParams()
+    const [data2, setData2] = useState('');
+    const [quantidade, setQuantidade] = useState(0);
+    let { id } = useParams();
 
     useEffect(() => {
         fetch(`http://localhost:3001/produtos/${id}`)
@@ -47,6 +48,11 @@ export default function Detalhes() {
         return 0; // Retorna 0 caso não haja comentários
     };
 
+    const carrinho = () => {
+        setQuantidade(quantidade + 1);
+        return quantidade
+    }
+
     return (
         <div>
             <Title
@@ -69,6 +75,8 @@ export default function Detalhes() {
                                 <p>Descrição: {data.descricao}</p>
                                 <p>Preço: R${data.preco}</p>
                                 <p>Nota geral: {calcularNotas()}</p>
+                                <p>Quantidade no carrinho: {quantidade}</p>
+                                <button onClick={carrinho}>Adicionar ao carrinho</button>
                             </div>
                         </div>
                     </div>

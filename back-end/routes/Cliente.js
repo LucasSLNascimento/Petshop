@@ -3,8 +3,7 @@ var router = express.Router();
 const clienteController = require('../controllers/clienteController')
 
 const multer = require('multer');
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage });
+const upload = multer();
 
 router.get('/', clienteController.listar);
 router.get('/:codigo', clienteController.buscarPorId);

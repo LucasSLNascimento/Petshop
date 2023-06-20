@@ -1,7 +1,10 @@
 import "./Header.css";
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 
 export default function Header() {
+    const location = useLocation();
     return (
         <div >
             <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -14,6 +17,15 @@ export default function Header() {
                     <li> <Link className="nav-link px-2 link-dark" to='/logar'>Login</Link> </li>
                     <li> <Link className="nav-link px-2 link-dark" to='/carrinho'>Carrinho</Link> </li>
                 </ul>
+                {(() => {
+                    if (location.pathname !== '/cad') {
+                        return (
+                            <div className="col-md-3 text-end">
+                                <button type="button" className="btn btn-primary"><Link class="nav-link px-2 link-white" to='/cadastro'>Cadastrar</Link></button>
+                            </div>
+                        )
+                    }
+                })()}
             </header>
         </div>
     )
