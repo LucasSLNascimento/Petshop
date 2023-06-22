@@ -9,10 +9,9 @@ class ProdutoController {
             const max = await produtoModel.findOne({}).sort({ codigo: -1 })
             const produto = req.body
             produto.codigo = max == null ? 1 : max.codigo + 1
-           
-            //const categoria = await categoriaModel.findOne({'codigo': produto.categoria.codigo})
-            //produto.categoria = categoria._id
- 
+   
+            const categoria = await categoriaModel.findOne({'codigo': produto.categoria})
+            produto.categoria = categoria._id
             const file = req.file.buffer;
             produto.imagem = file;
             

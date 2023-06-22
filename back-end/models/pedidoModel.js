@@ -5,17 +5,13 @@ const pedidoSchema = new mongoose.Schema({
     codigo: Number, 
     prec_tot: Number,
     produto: [{
-        nome: String,
-        quant: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'produto'
     }],
-    cliente: Number,
-
-    /*
     cliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cliente'
     },
-    */
     
     dataHora: {
         type: String,

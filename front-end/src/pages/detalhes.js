@@ -2,39 +2,38 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import Title from '../components/Titulo';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Detalhes() {
-    const [data, setData] = useState('');
-    const [data2, setData2] = useState('');
-    const [quantidade, setQuantidade] = useState(0);
+    const [data, setData] = useState(null)
+    const [quantidade, setQuantidade] = useState(null)
     let { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:3001/produtos/${id}`)
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(err => console.error(err))
-    }, [id])
-    useEffect(() => {
-        fetch('http://localhost:3001/categorias')
-            .then(response => response.json())
-            .then(data2 => setData2(data2))
-            .catch(err => console.error(err))
-    }, [])
+        const fetchData = async () => {
+            try {
+                const response1 = await axios.get(`http://localhost:3001/produtos/${id}`);
+                const data1 = response1.data;
+
+                const response2 = await axios.get('http://localhost:3001/categorias');
+                const categorias = response2.data;
+
+                const categoriaEncontrada = categorias.find(categoria => categoria._id === data1.categoria);
+                data1.categoria = categoriaEncontrada;
+
+                setData(data1); // Atualiza o estado com os dados recebidos
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData(); // Chama a função de busca de dados assíncrona
+    }, []);
 
     if (!data) {
         return <p>Carregando...</p>
     }
-
-    const categoria = () => {
-        if (data && data2 && data.categoria) {
-            const categoriaObj = data2.find((categoria) => categoria.codigo === data.categoria);
-            if (categoriaObj) {
-                return categoriaObj.nome;
-            }
-        }
-        return '';
-    };
 
     const calcularNotas = () => {
         if (data.coments && data.coments.length > 0) {
@@ -62,12 +61,12 @@ export default function Detalhes() {
 
                 <div className='row' style={{ border: '1px solid #d3d3d3' }}>
                     <div className='col-6' >
-                        <img src={data.imagem} alt={data.nome} className="card-img-top" />
+                    <img src={`data:image/jpeg;base64,` + btoa(Array.from(data.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={data.nome} className="card-img-top" />
                     </div>
                     <div className='col-4'>
                         <div className='card'>
                             <div className='card-header'>
-                                <p style={{ textAlign: 'center' }}>{categoria()}</p>
+                                <p style={{ textAlign: 'center' }}>{data.categoria.nome}</p>
                             </div>
 
                             <div>

@@ -8,14 +8,10 @@ const produtoSchema = new mongoose.Schema({
     },
     descricao: String,
     preco: Number,
-    categoria: Number,
-    /*
     categoria: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'categorias'
     },
-    */
-    
     animal: String,
     coments: [{
         comentario: String,

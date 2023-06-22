@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Title from '../Titulo';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Home() {
     const [data, setData] = useState(null)
@@ -8,14 +9,34 @@ export default function Home() {
     const [ordena, setOrdena] = useState('Nome');
 
     useEffect(() => {
-        fetch('http://localhost:3001/produtos')
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(err => console.error(err))
-    }, [])
+        const fetchData = async () => {
+            try {
+                const response1 = await axios.get('http://localhost:3001/produtos');
+                const data1 = response1.data;
+
+                const response2 = await axios.get('http://localhost:3001/categorias');
+                const categorias = response2.data;
+
+                const updatedData = await Promise.all(
+                    data1.map(async (produto) => {
+                        const categoriaEncontrada = categorias.find(categoria => categoria._id === produto.categoria);
+                        produto.categoria = categoriaEncontrada;
+                        return produto;
+                    })
+                );
+
+                setData(updatedData); // Atualiza o estado com os dados recebidos
+                console.log(updatedData);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData(); // Chama a função de busca de dados assíncrona
+    }, []);
 
     if (!data) {
-        return <p>Carregando...</p>
+        return <p>carregando...</p>
     }
 
     const handleProdChange = (event) => {
@@ -38,6 +59,17 @@ export default function Home() {
         }
     })
 
+    const groupedData = data.reduce((result, produto) => {
+        const categoriaNome = produto.categoria.nome;
+
+        if (!result[categoriaNome]) {
+            result[categoriaNome] = [];
+        }
+
+        result[categoriaNome].push(produto);
+        return result;
+    }, {});
+
     return (
         <div className="container text-center">
             <Title title={'Paraíso pet'} text='' />
@@ -52,27 +84,35 @@ export default function Home() {
             </div>
 
             <div className="row">
-                <div className='row'>
-                    {busca.map((produto, i) => (
-                        <div key={i}>
-                            <div className='col-3'>
-                                <div className="card">
-                                <img src={`data:image/jpeg;base64,` + btoa(Array.from(produto.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={produto.nome} className="card-img-top" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{produto.nome}</h5>
-                                        <p>R$ {produto.preco}</p>
+                {Object.entries(groupedData).map(([categoriaNome, produtos]) => (
+                    <div key={categoriaNome}>
+                        <h3>{categoriaNome}</h3>
+                        <div className="row">
+                            {produtos.map((produto, i) => (
+                                <div key={i}>
+                                    <div key={i}>
 
-                                        <div>
-                                            <Link to={`/detalhes/${produto.codigo}`}>
-                                                <button type="button">Detalhes</button>
-                                            </Link>
+                                        <div className='col-3'>
+                                            <div className="card">
+                                                <img src={`data:image/jpeg;base64,` + btoa(Array.from(produto.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={produto.nome} className="card-img-top" />
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{produto.nome}</h5>
+                                                    <p>R$ {produto.preco}</p>
+
+                                                    <div>
+                                                        <Link to={`/detalhes/${produto.codigo}`}>
+                                                            <button type="button">Detalhes</button>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     )

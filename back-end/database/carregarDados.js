@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const clienteModel = require('../models/clienteModel')
 const categoriaModel = require('../models/categoriaModel')
 const produtoModel = require('../models/produtoModel')
-const pedidoModel = require('../models/pedidoModel')
+//const pedidoModel = require('../models/pedidoModel')
 
 const clientes = require('./cliente.json')
 const categorias = require('./categoria.json')
 const produtos = require('./produto.json')
-const pedidos = require('./pedido.json')
+//const pedidos = require('./pedido.json')
 
 async function carregarDados() {
     try {
@@ -30,11 +30,7 @@ async function carregarDados() {
         }
         console.log('Carga de produtos concluída')
 
-        await pedidoModel.deleteMany({})
-        for(const pedido of pedidos){
-            await pedidoModel.create(pedido)
-        }
-        console.log('Carga de pedidos concluída')
+        
 
     } catch (err) {
         console.log(err)
@@ -44,3 +40,12 @@ async function carregarDados() {
 }
 
 carregarDados()
+
+
+/*
+await pedidoModel.deleteMany({})
+        for(const pedido of pedidos){
+            await pedidoModel.create(pedido)
+        }
+        console.log('Carga de pedidos concluída')
+*/

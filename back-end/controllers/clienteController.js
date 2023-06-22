@@ -12,12 +12,8 @@ class ClienteController {
 
             const max = await clienteModel.findOne({}).sort({ codigo: -1 })
             cliente.codigo = max == null ? 1 : max.codigo + 1
-            
-            if (req.file) {
-                const imagemBuffer = req.file.buffer
-                const imagemBase64 = imagemBuffer.toString('base64')
-                cliente.foto = imagemBase64
-            }
+            const file = req.file.buffer;
+            cliente.foto = file;
 
             const resultado = await clienteModel.create(cliente)      
             auth.incluirToken(resultado);
@@ -52,11 +48,9 @@ class ClienteController {
             const cliente = req.body
             const _id = String((await clienteModel.findOne({ 'codigo': codigo }))._id)
             
-            if (req.file) {
-                const imagemBuffer = req.file.buffer
-                const imagemBase64 = imagemBuffer.toString('base64')
-                req.body.foto = imagemBase64
-            }
+            const file = req.file.buffer;
+            cliente.foto = file;
+
             await clienteModel.findByIdAndUpdate(String(_id), cliente)
             res.status(200).send()
         } catch (error) {
