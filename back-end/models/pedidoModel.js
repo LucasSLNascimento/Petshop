@@ -6,7 +6,8 @@ const pedidoSchema = new mongoose.Schema({
     prec_tot: Number,
     produto: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'produto'
+        ref: 'produto',
+        quant: Number
     }],
     cliente: {
         type: mongoose.Schema.Types.ObjectId,

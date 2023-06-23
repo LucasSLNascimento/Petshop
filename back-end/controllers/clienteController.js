@@ -34,8 +34,8 @@ class ClienteController {
 
     async buscarPorId(req, res) {
         try {
-            const codigo = req.params.codigo
-            const resultado = await clienteModel.findOne({ 'codigo': codigo })
+            const _id = req.params.codigo
+            const resultado = await clienteModel.findOne({ '_id': _id })
             res.status(200).json(resultado)
         } catch (error) {
             res.status(500).json({ error: 'Erro ao listar este cliente' })

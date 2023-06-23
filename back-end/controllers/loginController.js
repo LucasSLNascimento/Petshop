@@ -2,7 +2,7 @@ const clienteModel = require('../models/clienteModel')
 const auth = require('../auth/auth')
 const bcryptjs = require('bcryptjs');
 
-class loginController{
+class LoginController{
     async login(req, res){
         const {email, senha} = req.body
         const cliente = await clienteModel.findOne({'email': email}).select('+senha')

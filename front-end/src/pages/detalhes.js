@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function Detalhes() {
     const [data, setData] = useState(null)
-    const [quantidade, setQuantidade] = useState(null)
+    const [quantidade, setQuantidade] = useState(1)
     let { id } = useParams();
 
     useEffect(() => {
@@ -47,6 +47,20 @@ export default function Detalhes() {
         return 0; // Retorna 0 caso não haja comentários
     };
 
+    const adicionarAoCarrinho = () => {
+        const produto = {
+            _id: data._id,
+            quantidade: quantidade
+        };
+
+        const produtosNoCarrinho = JSON.parse(localStorage.getItem('produtos')) || [];
+        produtosNoCarrinho.push(produto);
+        localStorage.setItem('produtos', JSON.stringify(produtosNoCarrinho));
+        alert('Produto adicionado ao carrinho')
+        const storedItem = localStorage.getItem('produtos');
+        console.log(storedItem)
+    };
+
     const carrinho = () => {
         setQuantidade(quantidade + 1);
         return quantidade
@@ -61,7 +75,7 @@ export default function Detalhes() {
 
                 <div className='row' style={{ border: '1px solid #d3d3d3' }}>
                     <div className='col-6' >
-                    <img src={`data:image/jpeg;base64,` + btoa(Array.from(data.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={data.nome} className="card-img-top" />
+                        <img src={`data:image/jpeg;base64,` + btoa(Array.from(data.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={data.nome} className="card-img-top" />
                     </div>
                     <div className='col-4'>
                         <div className='card'>
@@ -74,8 +88,9 @@ export default function Detalhes() {
                                 <p>Descrição: {data.descricao}</p>
                                 <p>Preço: R${data.preco}</p>
                                 <p>Nota geral: {calcularNotas()}</p>
-                                <p>Quantidade no carrinho: {quantidade}</p>
-                                <button onClick={carrinho}>Adicionar ao carrinho</button>
+                                <p>Quantidade a ir para o carrinho: {quantidade}</p>
+                                <button onClick={carrinho}>Adicionar mais um item</button> <br />
+                                <button onClick={adicionarAoCarrinho}>Adicionar ao carrinho</button>    
                             </div>
                         </div>
                     </div>

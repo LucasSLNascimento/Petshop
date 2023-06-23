@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import api from '../../services/api';
 import { Link } from 'react-router-dom';
 
 export default function Autentica() {
@@ -14,23 +13,35 @@ export default function Autentica() {
         const bodyParam = {
             email: email,
             senha: senha
-        }
+        };
 
-        api.post('/auth', bodyParam)
+        fetch('http://localhost:3001/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bodyParam)
+        })
             .then((response) => {
-                console.log(response.data)
-                alert(" Token gerado para o usuario " + response.data.nome)
-                localStorage.setItem('token', response.data.token)
-                navigate('/')
+                if (!response.ok) {
+                    throw new Error('Erro ao autenticar usuário');
+                }
+                return response.json();
             })
-            .catch((err) => {
-                console.error(err.response.data) // Objeto de erro vindo do axios
-                alert(" Ocorreu um erro! " + err.response.data.error)
+            .then((data) => {
+                console.log(data);
+                alert("Token gerado para o usuário " + data.nome);
+                localStorage.setItem('token', data.token);
+                navigate('/');
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Ocorreu um erro! " + error.message);
             })
             .finally(() => {
-                setEmail("")
-                setSenha("")
-            })
+                setEmail("");
+                setSenha("");
+            });
     }
 
     return (
