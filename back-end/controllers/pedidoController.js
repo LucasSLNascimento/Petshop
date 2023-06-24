@@ -10,11 +10,13 @@ class PedidoController {
             const max = await pedidoModel.findOne({}).sort({ codigo: -1 })
             pedido.codigo = max == null ? 1 : max.codigo + 1
             
+            /*
             const cliente = await clienteModel.findOne({'codigo': pedido.cliente})
             pedido.cliente = cliente._id
             const produto = await clienteModel.findOne({'codigo': pedido.produto})
             pedido.produto = produto._id
-            
+            */
+
             const resultado = await pedidoModel.create(pedido)
             res.status(201).json(resultado)
         } catch (error) {

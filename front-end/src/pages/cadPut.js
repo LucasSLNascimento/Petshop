@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './pages.css';
 
 export default function CadPut() {
     const [nome, setNome] = useState('');
@@ -66,66 +67,37 @@ export default function CadPut() {
 
     return (
         <div className="container text-center">
-            <div className="row">
+            <div style={{ display: 'flex' }}>
                 <div className="form-custom">
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>
-                                Nome:
-                                <input type="text" className="form-control" value={nome} onChange={(e) => { setNome(e.target.value) }} />
-                            </label>
+                        <div className='infos_pessoal'>
+                            <h5>Dados pessoais</h5>
+                            <input className='options' type="text" placeholder='Nome' value={nome} onChange={(e) => { setNome(e.target.value) }} /><br />
+                            <input className='options' type="text" placeholder='Endereço' value={endereco} onChange={(e) => { setEndereco(e.target.value) }} /><br />
+                            <input className='options' type="text" placeholder='CPF' maxLength='11' value={CPF} onChange={(e) => { setCpf(e.target.value) }} /><br />
+                            <input className='options' type="text" placeholder='Telefone' value={telefone} onChange={(e) => { setTelefone(e.target.value) }} />
+
                         </div>
-                        <br />
-                        <div className="form-group">
-                            <label>
-                                Endereço:
-                                <input type="text" className="form-control" value={endereco} onChange={(e) => { setEndereco(e.target.value) }} />
-                            </label>
-                        </div>
-                        <br />
-                        <div className="form-group">
-                            <label>
-                                CPF:
-                                <input type="text" maxLength='11' className="form-control" value={CPF} onChange={(e) => { setCpf(e.target.value) }} />
-                            </label>
-                        </div>
-                        <br />
-                        <div className="form-group">
-                            <label>
-                                Telefone:
-                                <input type="text" className="form-control" value={telefone} onChange={(e) => { setTelefone(e.target.value) }} />
-                            </label>
-                        </div>
-                        <br />
-                        <div>
+
+                        <div className='infosCartao'>
                             <h5>Dados do cartão</h5>
                             <input className='cartao' type="text" value={credNome} onChange={(e) => { setCredNome(e.target.value) }} placeholder='Nome do cartão' /> <br />
                             <input className='cartao' type="text" maxLength='20' value={credNum} onChange={(e) => { setCredNum(e.target.value) }} placeholder='Número do cartão' /> <br />
                             <input className='cartao' type="password" maxLength='3' value={credCvc} onChange={(e) => { setCredCvc(e.target.value) }} placeholder='CVC' />
                         </div>
                         <br />
-                        <div className="form-group">
-                            <label>
-                                Email:
-                                <input type="email" className="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }} />
-                            </label>
+                        <div className='infosCad'>
+                            <input type="email" placeholder='Email' className="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                            <input type="password" placeholder='Senha' className="form-control" value={senha} onChange={(e) => { setSenha(e.target.value) }} />
                         </div>
-                        <br />
-                        <div className="form-group">
-                            <label>
-                                Senha:
-                                <input type="password" className="form-control" value={senha} onChange={(e) => { setSenha(e.target.value) }} />
-                            </label>
-                        </div>
-                        <br />
-                        <div className="form-group">
+                        <div className='foto'>
                             <label>
                                 Foto:
                                 <input type="file" className="form-control-file" onChange={handleFotoChange} />
                             </label>
                         </div>
                         <br />
-                        <button type="submit" className="btn btn-primary">Cadastrar</button>
+                        <button className='submit' type="submit">Cadastrar</button>
                     </form>
                 </div>
             </div>

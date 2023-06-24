@@ -6,14 +6,12 @@ const pedidoSchema = new mongoose.Schema({
     prec_tot: Number,
     produto: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'produto',
-        quant: Number
+        ref: 'produto'
     }],
     cliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cliente'
     },
-    
     dataHora: {
         type: String,
         default: moment().format('DD/MM/YYYY HH:mm')

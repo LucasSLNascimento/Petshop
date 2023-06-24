@@ -42,14 +42,16 @@ export default function Home() {
     const handleProdChange = (event) => {
         setProd_Name(event.target.value)
     }
-    const busca = data.filter((produto) =>
-        produto.nome.toLowerCase().includes(prod_name.toLowerCase())
-    )
+
     const handleOrdChange = (event) => {
         setOrdena(event.target.value);
     }
 
-    data.sort((prod1, prod2) => {
+    const filteredData = data.filter((produto) =>
+        produto.nome.toLowerCase().includes(prod_name.toLowerCase())
+    );
+
+    filteredData.sort((prod1, prod2) => {
         if (ordena === 'Nome') {
             return prod1.nome.localeCompare(prod2.nome)
         } else if (ordena === 'Menor preco') {
@@ -57,9 +59,9 @@ export default function Home() {
         } else {
             return prod2.preco - prod1.preco
         }
-    })
+    });
 
-    const groupedData = data.reduce((result, produto) => {
+    const groupedData = filteredData.reduce((result, produto) => {
         const categoriaNome = produto.categoria.nome;
 
         if (!result[categoriaNome]) {
@@ -86,25 +88,25 @@ export default function Home() {
             <div className="row">
                 {Object.entries(groupedData).map(([categoriaNome, produtos]) => (
                     <div key={categoriaNome}>
-                        <h3>{categoriaNome}</h3>
-                        <div className="row">
+                        <div className="container mt-5" style={{ border: '1px solid #d3d3d3' }}>
+                            <p>{categoriaNome}</p>
+                        </div>
+                        <div className="row d-flex">
                             {produtos.map((produto, i) => (
-                                <div key={i}>
-                                    <div key={i}>
-
-                                        <div className='col-3'>
-                                            <div className="card">
-                                                <img src={`data:image/jpeg;base64,` + btoa(Array.from(produto.imagem.data).map(byte => String.fromCharCode(byte)).join(''))} alt={produto.nome} className="card-img-top" />
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{produto.nome}</h5>
-                                                    <p>R$ {produto.preco}</p>
-
-                                                    <div>
-                                                        <Link to={`/detalhes/${produto.codigo}`}>
-                                                            <button type="button">Detalhes</button>
-                                                        </Link>
-                                                    </div>
-                                                </div>
+                                <div key={i} className="col-4">
+                                    <div className="card">
+                                        <img
+                                            src={`data:image/jpeg;base64,` + btoa(Array.from(produto.imagem.data).map(byte => String.fromCharCode(byte)).join(''))}
+                                            alt={produto.nome}
+                                            className="card-img-top"
+                                        />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{produto.nome}</h5>
+                                            <p>R$ {produto.preco}</p>
+                                            <div>
+                                                <Link to={`/detalhes/${produto.codigo}`}>
+                                                    <button type="button">Detalhes</button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

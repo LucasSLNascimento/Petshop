@@ -1,0 +1,12 @@
+/* Cadastro */
+.options , .cartao{
+    margin-bottom: 5px;
+}
+
+.planos input{
+    display: none;
+}
+
+.infos_pessoal, .infosCartao, .infosCad, .submit, .foto{
+    margin-left: 400px;
+}

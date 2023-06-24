@@ -17,7 +17,7 @@ export default function Header() {
                     <li> <Link className="nav-link px-2 link-dark" to='/carrinho'>Carrinho</Link> </li>
 
                     {(() =>{
-                    if(token !== null){
+                    if(token !== null || token !== ''){
                         return <li> <Link className="nav-link px-2 link-dark" to='/perfil'>Perfil</Link> </li>
                     }
                 })()}
