@@ -5,19 +5,20 @@ const produtoModel = require('../models/produtoModel')
 class PedidoController {
 
     async salvar(req, res) {
-        try {
-            let pedido = req.body
+        try {          
             const max = await pedidoModel.findOne({}).sort({ codigo: -1 })
+            const pedido = req.body
             pedido.codigo = max == null ? 1 : max.codigo + 1
             
-            /*
+            console.log(pedido)
             const cliente = await clienteModel.findOne({'codigo': pedido.cliente})
             pedido.cliente = cliente._id
-            const produto = await clienteModel.findOne({'codigo': pedido.produto})
+            
+            const produto = await produtoModel.findOne({'codigo': pedido.produto})
             pedido.produto = produto._id
-            */
 
             const resultado = await pedidoModel.create(pedido)
+            
             res.status(201).json(resultado)
         } catch (error) {
             res.status(500).json({ error: 'Erro ao salvar este pedido' })

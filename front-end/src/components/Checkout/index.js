@@ -56,11 +56,8 @@ export default function Checkout() {
         if (storedToken) {
             const formData = new FormData();
             formData.append('prec_tot', precoTotal(storedItem, getProductById));
-            const productIds = storedItem.map(item => item._id);
-            productIds.forEach(productId => {
-                formData.append('produto', productId);
-            });
-            formData.append('cliente', storedToken);
+            formData.append('produto', prod[0].codigo);
+            formData.append('cliente', cliente.codigo);
 
             fetch('http://localhost:3001/pedidos', {
                 method: 'POST',

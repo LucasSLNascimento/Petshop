@@ -6,6 +6,7 @@ import Login from './pages/login'
 import CadPut from './pages/cadPut'
 import Perfil from './pages/perfil'
 import Pedido from './pages/Pedido';
+import PutUser from './pages/putUser'
 
 export default function RoutesConfig(){
     return(
@@ -14,6 +15,7 @@ export default function RoutesConfig(){
             <Route path='detalhes/:id' element={<Detalhes />} />
             <Route path='logar' element={<Login />} />
             <Route path='cadPut' element={<CadPut />} />
+            <Route path='atualizar/:id' element={<PutUser />} />
             <Route path='Perfil' element={<Perfil />} />
             <Route path='carrinho' element={<Pedido />} />
             <Route path='*' element={<h1> 404 - Página Não Encontrada!</h1>} />

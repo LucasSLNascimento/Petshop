@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const pedidoController = require('../controllers/pedidoController')
-const auth = require('../auth/auth')
+//const auth = require('../auth/auth')
 
 //router.use(auth.autorizar)
 

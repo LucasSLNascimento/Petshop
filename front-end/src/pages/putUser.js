@@ -1,7 +1,33 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import jwtDecode from 'jwt-decode';
 import './pages.css';
 
 export default function CadPut() {
+
+    const [cliente, setCliente] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+
+            const decodedToken = jwtDecode(token);
+            const clienteId = decodedToken.id;
+            const headers = {
+                Authorization: clienteId
+            };
+            fetch(`http://localhost:3001/clientes/${clienteId}`, { headers })
+                .then(response => response.json())
+                .then(data => {
+                    setCliente(data);
+                    console.log(cliente)
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }, []);
+
+
     const [nome, setNome] = useState('');
     const [foto, setFoto] = useState(null);
     const [endereco, setEndereco] = useState('');
@@ -12,7 +38,6 @@ export default function CadPut() {
     const [credCvc, setCredCvc] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const token = localStorage.getItem('token');
 
     const handleFotoChange = (event) => {
         const file = event.target.files[0];
@@ -34,19 +59,19 @@ export default function CadPut() {
         formData.append('email', email);
         formData.append('senha', senha);
 
-        fetch('http://localhost:3001/clientes', {
-            method: 'POST',
+        fetch(`http://localhost:3001/clientes/${cliente.codigo}`, {
+            method: 'PUT',
             body: formData
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Erro ao criar usuário');
+                    throw new Error('Erro ao atualizar usuário');
                 }
                 return response.json();
             })
             .then((data) => {
                 console.log(data);
-                alert("O usuário " + data.codigo + " foi criado com sucesso!");
+                alert("O usuário " + data.codigo + " foi atualizado com sucesso!");
             })
             .catch((error) => {
                 console.error(error);
@@ -99,9 +124,7 @@ export default function CadPut() {
                             </label>
                         </div>
                         <br />
-                        <div>
-                            <button className='submit' type="submit">Cadastrar</button>
-                        </div>
+                        <button className='submit' type="submit">Atualizar</button>
 
                     </form>
                 </div>

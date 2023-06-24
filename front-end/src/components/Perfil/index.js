@@ -10,7 +10,7 @@ export default function Perfil() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            
+
             const decodedToken = jwtDecode(token);
             const clienteId = decodedToken.id;
             const headers = {
@@ -28,8 +28,12 @@ export default function Perfil() {
     }, []);
 
     const logOff = () => {
+        localStorage.removeItem('token');
         navigate("/");
-        return localStorage.removeItem('token');
+    }
+    const atualizar = () => {
+        const clienteId = cliente.codigo
+        navigate(`/atualizar/${clienteId}`);
     }
 
     return (
@@ -51,7 +55,8 @@ export default function Perfil() {
                                 </div>
                             </div>
                             <button onClick={logOff}>Log Off</button>
-                        </div>  
+                            <button onClick={atualizar}>Atualizar perfil</button>
+                        </div>
                     </div>
                 </div>
             ) : (
